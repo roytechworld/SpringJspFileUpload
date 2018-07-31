@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 
@@ -51,9 +52,14 @@ public class HomeController {
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public @ResponseBody
 	String uploadFileHandler(@RequestParam("name") String name,
-	@RequestParam("file") MultipartFile file) {
+	@RequestParam("file") MultipartFile file,HttpServletRequest request) {
 
-name=file.getOriginalFilename();
+		
+		System.out.println("Name forund "+request.getParameter("name"));
+		
+		
+		
+     name=file.getOriginalFilename();
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();

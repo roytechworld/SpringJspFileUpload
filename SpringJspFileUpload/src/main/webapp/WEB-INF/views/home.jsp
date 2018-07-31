@@ -2,13 +2,45 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Spring Crud</title>
+	
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function()		
+	{
+		
+		$("#btnUpload").click(function()
+	    {
+	   alert("called")
+	    var value="";
+			$.ajax({
+			    url: 'uploadFile',
+				type: "POST",
+		            data: new FormData(document.getElementById("formdata")),
+		            enctype: 'multipart/form-data',
+		            processData: false,
+		            contentType: false,
+			        success:function(data)
+			{
+				alert(data);
+				$("#s").html(data);
+			}
+					
+			})
+			
+	    });
+
+	});
+	</script>
+	
 </head>
 <body>
-<form method="POST" action="uploadFile" enctype="multipart/form-data">
+<form method="POST" id="formdata" action="uploadFile" enctype="multipart/form-data">
 		File to upload: <input type="file" name="file"><br /> 
 		Name: <input type="text" name="name"><br /> <br /> 
-		<input type="submit" value="Upload"> Press here to upload the file!
+		<button id="btnUpload" type="button">Upload file</button>
+		
+		<div id="s"></div>
 </form>	
 </body>
 </html>
